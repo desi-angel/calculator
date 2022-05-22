@@ -1,0 +1,49 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+body{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+header{
+    padding: 50px 50px 20px 50px;
+    text-align: center;
+    border: 2px solid orange;
+}
+h1{
+    font-size: 48px;
+}
+footer{
+    padding: 25px 25px;
+    text-align: center;
+}
+.main-container{
+    border: 2px solid red;
+    width: 390px;
+    margin: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2%;
+    padding: 10px;
+    margin: 100px 700px 100px 700px;
+}
+#screen{
+    margin-bottom: 5px;
+    width: 390px;
+    height: 100px;
+    border: 2px solid black;
+}
+button{
+    width: 75px;
+    height: 75px;
+    margin: 5px;
+}
+#clear, #delete{
+    flex-grow: 1;
+    width: 150px;
+}
