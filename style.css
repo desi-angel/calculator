@@ -13,7 +13,6 @@ body{
 header{
     padding: 50px 50px 20px 50px;
     text-align: center;
-    border: 2px solid orange;
 }
 h1{
     font-size: 48px;
@@ -23,20 +22,20 @@ footer{
     text-align: center;
 }
 .main-container{
-    border: 2px solid red;
-    width: 390px;
+    background-color: grey;
+    width: 400px;
     margin: 100px;
     display: flex;
     flex-wrap: wrap;
-    gap: 2%;
-    padding: 10px;
-    margin: 75px 746px 75px 746px;
+    gap: 2.5%;
+    padding: 15px;
+    margin: 75px 650px 75px 650px;
     box-shadow: 5px 10px 18px #888888;
     border-radius: 2%;
 }
 #screen{
     margin-bottom: 5px;
-    width: 390px;
+    width: 400px;
     height: 100px;
     border: 2px solid black;
     text-align: right;
@@ -47,6 +46,7 @@ footer{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: white;
 }
 
 
@@ -54,8 +54,16 @@ button{
     width: 75px;
     height: 75px;
     margin: 5px;
+    font-size: 25px;
+   border: 2px solid yellow;
+
 }
 #clear, #delete{
     flex-grow: 1;
     width: 150px;
 }
+
+#text-2 {
+    font-size: 36px;
+}
+

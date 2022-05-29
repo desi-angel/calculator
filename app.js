@@ -106,11 +106,13 @@ function clearScreen(){
     secondNumber = '';
     currentOperator = '';
     number = '';
+    decimalEnabled = true;
 
 }
 function deleteItem(){
     
-    //const item = display2.textContent.charAt(display2.textContent.length -1);
+    const item = display2.textContent.charAt(display2.textContent.length -1);
+    if (item === '.') decimalEnabled = true;
     display2.textContent = display2.textContent.slice(0, display2.textContent.length-1);
     number = number.slice(0,number.length-1);
 }
