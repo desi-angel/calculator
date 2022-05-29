@@ -11,90 +11,23 @@ function multiply(a,b){ //multiplication
 function division(a,b){ //division
     return a/b; 
 }
-//function to display operations
-function displayOperation(val){
-    const screen = document.querySelector('#text-1');
-    const content = document.createTextNode(val);
-    screen.appendChild(content);
-}
-//function to display result of calculation
-function resultDisplay(str){
-    const result = document.querySelector('#text-2');
-    result.textContent = str;
-}
-let numArr = [],
-    operatorArr = [],
-    number = '',
-    numCount = 0,
-    operationCount =0;
-
-const btns = document.querySelectorAll('button')
-btns.forEach(btn => {
-    btn.addEventListener('click',(e) => {
-        if(e.currentTarget.value){
-            getNumber(e);
-            displayOperation(e.currentTarget.value);
-        }
-        else{
-            console.log(numArr,operatorArr,numCount,operationCount);
-            if (number.length > 0) storeNumber();
-            if(e.currentTarget.id !== 'equals'){
-                storeOperation(e);
-                displayOperation(symbols[e.currentTarget.id])
-            }
-            
-            if(e.currentTarget.id === 'equals'){
-
-                let result = operate(numArr[numCount-2],numArr[numCount-1],operatorArr[operationCount-1]);
-                resultDisplay(result);
-                numArr.push(result);
-                numCount++;
-            } 
-
-            else if(numArr.length % 2 ===0){
-                let result = operate(numArr[numCount-2],numArr[numCount-1],operatorArr[operationCount-2]);
-                resultDisplay(result);
-                numArr.push(result);
-                numCount++;
-            }
-
-        }
-        
-    });
-});
-function getNumber(e){
-    number+=e.currentTarget.value;
-}
-function storeNumber(){
-    console.log(number);
-    numArr.push(parseInt(number));
-    console.log(numArr);
-    numCount++;
-    number ='' ;
-}
-function storeOperation(e){
-    operatorArr.push(e.currentTarget.id);
-    operationCount++;
-}
-function operate(a,b,operator){
-    switch(operator){
-        case 'add':
+function operate(){
+    a =Number(firstNumber);
+    b= Number(secondNumber);
+    switch(currentOperator){
+        case '+':
             return add(a,b);
-        case 'subtract':
+        case '-':
             return subtract(a,b);
-        case 'multiply':
+        case '*':
             return multiply(a,b);
-        case 'divide':
+        case '/':
             return division(a,b);
     }
 }
-//console.log(number);
-function clearScreen(){
-    const screen = document.querySelector('#text-1');
-    screen.textContent = '';
-}
-
 const symbols = {
+
+
     'add': '+',
     'subtract': '-',
     'multiply' : '*',
@@ -102,4 +35,88 @@ const symbols = {
     'decimal': '.',
     'equals':'=',
 };
+let firstNumber = '',
+    secondNumber = '',
+    currentOperator = '';
+    number = '';
+    decimalEnabled = true;
+const display1 = document.querySelector('#text-1');
+const display2 = document.querySelector('#text-2');
+const equalsTo = document.getElementById('equals');
 
+
+function displayNum(num){
+
+    number += num;
+    display2.textContent = number;
+}
+
+function displayOperation(){
+    display1.textContent = `${firstNumber} ${currentOperator} ${secondNumber} `;
+
+}
+
+const numBtn = document.querySelectorAll('.numbers');
+numBtn.forEach(btn => {
+    btn.addEventListener('click',(e) => displayNum(e.target.textContent));
+});
+
+const operationBtn = document.querySelectorAll('.operation');
+operationBtn.forEach(btn => {
+    btn.addEventListener('click', (e)=> {
+        decimalEnabled = true;
+        setNumber();
+        if((e.currentTarget.id === 'equals' && firstNumber.length !== 0 && secondNumber.length !== 0) || (firstNumber.length !== 0 && secondNumber.length !== 0)) {
+            let result = operate();
+            display2.textContent = result;
+            firstNumber = result;
+            secondNumber = '';
+            displayOperation();
+        
+        } 
+      setCurrentOperation(e);
+    });
+});
+
+function setNumber(){
+    
+    if(firstNumber === ''){
+        number = number || '0';
+        firstNumber = number;
+        displayOperation();
+    }
+    else{
+        secondNumber = number; 
+        displayOperation();
+        
+    }
+    number ='';
+}
+function setCurrentOperation(e){
+    if(e.target.textContent !== '='){
+        currentOperator = e.currentTarget.textContent;
+        displayOperation();
+    }
+    
+}
+function clearScreen(){
+    display1.textContent = '';
+    display2.textContent = '0';
+    firstNumber = '';
+    secondNumber = '';
+    currentOperator = '';
+    number = '';
+
+}
+function deleteItem(){
+    
+    //const item = display2.textContent.charAt(display2.textContent.length -1);
+    display2.textContent = display2.textContent.slice(0, display2.textContent.length-1);
+    number = number.slice(0,number.length-1);
+}
+function addDecimal(e){
+    if (decimalEnabled === true){
+        displayNum(e.target.textContent);
+        decimalEnabled = false;
+    }
+}
